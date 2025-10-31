@@ -1,16 +1,378 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>WinZ - Fast Window Switching</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HKAppDev - Productivity Apps for Windows</title>
+    <meta name="description" content="HKAppDev creates productivity apps for Windows. Download WinZ - Fast window switching with Alt+Backtick.">
+    <meta name="keywords" content="productivity apps, windows apps, window switcher, HKAppDev">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2em;
+            font-weight: 700;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            opacity: 0.9;
+            transition: opacity 0.2s;
+        }
+
+        nav a:hover {
+            opacity: 1;
+        }
+
+        .hero {
+            background: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .hero p {
+            font-size: 1.3em;
+            color: #666;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .apps-section {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 60px;
+            color: #333;
+        }
+
+        .app-card {
+            background: white;
+            border-radius: 15px;
+            padding: 50px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .app-info h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+
+        .app-info p {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .app-features {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .app-features li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+            color: #555;
+        }
+
+        .app-features li:before {
+            content: "âœ“";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .download-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            margin-top: 20px;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .app-demo {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 100px 40px;
+            text-align: center;
+            color: #999;
+        }
+
+        .keyboard-shortcut {
+            display: inline-flex;
+            gap: 10px;
+            margin: 20px 0;
+            font-size: 1.5em;
+        }
+
+        .key {
+            display: inline-block;
+            padding: 10px 20px;
+            background: white;
+            border: 3px solid #667eea;
+            border-radius: 8px;
+            font-family: monospace;
+            font-weight: bold;
+            color: #667eea;
+            box-shadow: 0 3px 0 #667eea;
+        }
+
+        .technical-info {
+            background: #2c3e50;
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        .technical-info h3 {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+
+        .technical-info p {
+            opacity: 0.8;
+            font-size: 0.95em;
+            line-height: 1.8;
+        }
+
+        .about-section {
+            background: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .about-section p {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.2em;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .disclaimer {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px 30px;
+            margin: 40px auto;
+            max-width: 900px;
+            border-radius: 5px;
+        }
+
+        .disclaimer h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .disclaimer p {
+            color: #856404;
+            font-size: 0.95em;
+            line-height: 1.6;
+            text-align: left;
+        }
+
+        footer {
+            background: #1a252f;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav {
+                margin-top: 20px;
+            }
+
+            nav a {
+                margin: 0 15px;
+            }
+
+            .app-card {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
 </head>
-<body style="font-family: system-ui, sans-serif; max-width: 600px; margin: 3rem auto; line-height: 1.5; color: #111;">
-  <h1>WinZ</h1>
-  <p>If you're seeing this, GitHub Pages is working.</p>
-  <p>Support: winz.support@example.com</p>
-  <p style="font-size:.8rem;color:#555;margin-top:2rem;">
-    WinZ is provided "AS IS", without warranty of any kind. Use at your own risk.
-  </p>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">HKAppDev</div>
+                <nav>
+                    <a href="#apps">Apps</a>
+                    <a href="#about">About</a>
+                    <a href="privacy.html">Privacy</a>
+                    <a href="https://github.com/hkappdev">GitHub</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="hero">
+        <div class="container">
+            <h1>Productivity Apps for Windows</h1>
+            <p>Simple, efficient tools designed to enhance your Windows workflow</p>
+        </div>
+    </div>
+
+    <div class="apps-section" id="apps">
+        <div class="container">
+            <h2 class="section-title">Our Apps</h2>
+
+            <div class="app-card">
+                <div class="app-info">
+                    <h2>WinZ</h2>
+                    <p>Fast Window Switching</p>
+                    <p>Quickly switch between multiple windows of the same app with a simple keyboard shortcut.</p>
+
+                    <ul class="app-features">
+                        <li>Switch between windows instantly</li>
+                        <li>Works with any application</li>
+                        <li>Lightweight and fast</li>
+                        <li>Runs automatically at startup</li>
+                    </ul>
+
+                    <div class="keyboard-shortcut">
+                        <span class="key">Alt</span>
+                        <span style="font-size: 1.5em;">+</span>
+                        <span class="key">`</span>
+                    </div>
+
+                    <a href="https://www.microsoft.com/store/apps/9NH2R2QNMN23" class="download-btn">Download from Microsoft Store</a>
+
+                    <div class="technical-info">
+                        <h3>For Linux & GNOME Users</h3>
+                        <p>
+                            Coming from Linux or GNOME? WinZ brings the familiar Alt+` window
+                            switching behavior to Windows - just like Ubuntu, Fedora, and other
+                            Linux distributions. Switch between windows of the same application
+                            the way you're used to.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="app-demo">
+                    <p>Screenshot Coming Soon</p>
+                </div>
+            </div>
+
+            <div class="disclaimer">
+                <h4>âš ï¸ Disclaimer</h4>
+                <p>
+                    WinZ is provided "AS IS", without warranty of any kind. By using WinZ,
+                    you assume all risk. The publisher is not liable for any loss of data,
+                    loss of productivity, system issues, or other damages resulting from
+                    installing or using this software.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="about-section" id="about">
+        <div class="container">
+            <h2 class="section-title">About HKAppDev</h2>
+            <p>
+                HKAppDev creates simple, focused productivity tools for Windows users.
+                Our apps are designed to solve specific problems efficiently, without
+                unnecessary complexity. We believe in building software that just works.
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 HKAppDev. All rights reserved.</p>
+            <p style="margin-top: 10px;">
+                <a href="privacy.html">Privacy Policy</a> |
+                <a href="https://github.com/hkappdev">GitHub</a>
+            </p>
+            <p style="margin-top: 20px; opacity: 0.7; font-size: 0.9em;">
+                WinZ is not affiliated with GNOME, Linux, or any Linux distributions.
+            </p>
+        </div>
+    </footer>
 </body>
 </html>
